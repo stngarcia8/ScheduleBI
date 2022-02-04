@@ -1,23 +1,41 @@
 import React from 'react'
 import image from '../../../assets/images/task.png'
-import TaskDetails from './TaskDetails'
+
 
 const TaskContent = (props) => {
   const { data } = props
 
+  const prepareTasksDetails = (tasks) => {
+    return tasks.map((x) => {
+      return (<div >
+        <h5 className="mb-0">
+
+          <strong>
+            Tarea: {x?.task_name}
+          </strong>
+        </h5>
+        <span>
+          Duración: {x?.duration}
+        </span>
+      </div>)
+    })
+  }
+
+
   const prepareBodyContent = () => {
-    return data?.taskPerDay.map((x) => {
+    if (!data?.taskPerDay) return (<></>)
+    return data?.taskPerDay.map((x, index) => {
       return (
-        <div className="col-sm-6 col-lg-3 mb-3 mb-lg-0">
+        <div key={index} className="col-sm-6 col-lg-3 mb-3 mb-lg-0">
           <img className="card-img-top" src={image} alt="Tarea" />
-          <h5 className="card-text lh-base">
+          <h3 className="card-text lh-base">
             Tareas del día {x.dayNumber}
-          </h5>
+          </h3>
           <span className="card-subtitle text-primary">
             {x.taskQuantity} encontradas
           </span>
           <div className="card-body">
-            <TaskDetails tasks={x?.tasks} />
+            {prepareTasksDetails(x?.tasks)}
           </div>
         </div>
       )
@@ -40,7 +58,6 @@ const TaskContent = (props) => {
         {prepareBodyContent()}
       </div>
     </div>
-
   )
 }
 
