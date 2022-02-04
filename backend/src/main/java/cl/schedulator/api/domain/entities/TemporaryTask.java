@@ -1,9 +1,9 @@
 package cl.schedulator.api.domain.entities;
 
 public class TemporaryTask {
-    private String taskId;
-    private String taskName;
-    private Integer duration;
+    private final String taskId;
+    private final String taskName;
+    private final Integer duration;
     private Boolean available;
 
     public TemporaryTask(String taskId, String taskName, Integer duration) {

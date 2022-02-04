@@ -2,16 +2,14 @@ package cl.schedulator.api.usecases;
 
 import cl.schedulator.api.configuration.WebClientConfiguration;
 import cl.schedulator.api.domain.entities.Task;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Daniel Garcia
- * Description Load tasks from http://localhost:8080/generator/schedule/tasks
- */
+@Slf4j
 public class TasksLoader {
     private WebClient webClient;
     private List<Task> tasks;
@@ -26,16 +24,19 @@ public class TasksLoader {
     }
 
     private void configureWebClient() {
+        log.info("Configure web client.");
         webClient = WebClientConfiguration.configureClient(baseUrl, uri)
                 .createClient();
     }
 
-    private void loadTasks() {
+    private void loadTasks()   {
+        log.info("Loading task from microservice.");
         Flux<Task> taskFlux = webClient.get()
                 .uri(uri)
                 .retrieve()
                 .bodyToFlux(Task.class);
         tasks = taskFlux.collectList().block();
+        log.info("Tas was loaded.");
     }
 
     public List<Task> getTasks() {

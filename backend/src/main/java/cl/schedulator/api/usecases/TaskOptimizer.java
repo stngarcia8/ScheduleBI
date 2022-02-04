@@ -1,15 +1,17 @@
 package cl.schedulator.api.usecases;
 
-import cl.schedulator.api.domain.entities.Task;
 import cl.schedulator.api.domain.entities.DailyTask;
+import cl.schedulator.api.domain.entities.Task;
 import cl.schedulator.api.domain.entities.TaskSummary;
 import cl.schedulator.api.domain.entities.TemporaryTask;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class TaskOptimizer {
     private List<Task> tasks;
     private List<TemporaryTask> temporaryTasks;
@@ -24,14 +26,17 @@ public class TaskOptimizer {
     }
 
     public static TaskOptimizer createOptimizer(List<Task> tasks) {
+        log.info("Startin the optimization for tasks.");
         return new TaskOptimizer(tasks);
     }
 
     private void sortTasks() {
+        log.info("Sorting data.");
         Collections.sort(this.tasks);
     }
 
     private void prepareTemporaryElements() {
+        log.info("Preparing temporary elements.");
         this.temporaryTasks = new ArrayList<>();
         this.tasks.stream().forEach(t -> {
             temporaryTasks.add(new TemporaryTask(t.getTaskId(), t.getTaskName(), t.getDuration()));
@@ -40,6 +45,7 @@ public class TaskOptimizer {
     }
 
     public TaskSummary optimizeTaskDistribution() {
+        log.info("Optimizing tasks.");
         List<DailyTask> dailyTasks = new ArrayList<>();
         int dayCounter = 1;
         for (Task t : this.tasks) {
@@ -73,6 +79,7 @@ public class TaskOptimizer {
             }
         }
         ;
+        log.info("Ending optimizations.");
         return dt;
     }
 
