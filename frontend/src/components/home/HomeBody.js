@@ -1,6 +1,6 @@
 import React from 'react'
 import ErrorMessage from './ErrorMessage'
-import TaskContent from './TaskContent'
+import TaskContent from './taskcontent/TaskContent'
 
 const HomeBody = (props) => {
   const { data, error } = props
