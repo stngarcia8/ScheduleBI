@@ -23,7 +23,7 @@ public class TaskController {
     private final String baseUrl = "http://localhost:8080";
     private List<Task> tasks = new ArrayList<>();
 
-    @CrossOrigin(origins = "http://localhost:4000")
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/tasks", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> getTasks() {
         String uri = "/generator/schedule/tasks";

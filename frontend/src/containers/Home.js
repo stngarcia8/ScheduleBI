@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import HomeBody from '../components/home/HomeBody'
 import HomeTitle from '../components/home/HomeTitle'
 import { useTaskLoader } from '../hoocks/useTaskLoader'
 
@@ -24,6 +25,9 @@ const Home = () => {
     <div>
       <HomeTitle
         buttonOnclickCB={handleGetTaskButtonOnclick}
+      />
+      <HomeBody
+        data={data} error={error}
       />
     </div>
   )
