@@ -3,9 +3,10 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './containers/Home'
 
+
 function App() {
   return (
-    <div class="container content-space-2 content-space-lg-3">
+    <div className="container content-space-2 content-space-lg-3">
       <Header />
       <Router>
         <Home />

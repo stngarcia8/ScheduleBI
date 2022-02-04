@@ -6,7 +6,9 @@ import cl.schedulator.api.domain.entities.TaskSummary;
 import cl.schedulator.api.usecases.TaskOptimizer;
 import cl.schedulator.api.usecases.TasksLoader;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +23,8 @@ public class TaskController {
     private final String baseUrl = "http://localhost:8080";
     private List<Task> tasks = new ArrayList<>();
 
-    @GetMapping(value = "/tasks")
+    @CrossOrigin(origins = "http://localhost:4000")
+    @GetMapping(value = "/tasks", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> getTasks() {
         String uri = "/generator/schedule/tasks";
         TasksLoader loader = new TasksLoader(baseUrl, uri);
