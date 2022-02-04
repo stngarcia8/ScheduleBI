@@ -25,11 +25,14 @@ public class TasksLoader {
 
     private void configureWebClient() {
         log.info("Configure web client.");
+
         webClient = WebClientConfiguration.configureClient(baseUrl, uri)
                 .createClient();
+
+
     }
 
-    private void loadTasks()   {
+    private void loadTasks() {
         log.info("Loading task from microservice.");
         Flux<Task> taskFlux = webClient.get()
                 .uri(uri)
